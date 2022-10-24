@@ -1,13 +1,9 @@
-// ignore_for_file: unnecessary_new
-
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:whatwatch/home/components/body_home.dart';
 
 
 class HomeScreen extends StatelessWidget {
-      const HomeScreen({Key? key}) : super(key: key);
+      HomeScreen({Key? key}) : super(key: key);
 
 
   @override

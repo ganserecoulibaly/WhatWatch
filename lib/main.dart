@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:whatwatch/home/home.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -22,3 +22,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
