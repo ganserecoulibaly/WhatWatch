@@ -4,29 +4,24 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 
-class FilmsRPage extends StatefulWidget {
-    const FilmsRPage({Key? key}) : super(key: key);
+class PopularPPage extends StatefulWidget {
+ 
+    const PopularPPage({Key? key}) : super(key: key);
+     
     
   @override
-  _FilmsRPageState createState() => _FilmsRPageState();
+  _PopularPageState createState() => _PopularPageState();
 }
 
-class _FilmsRPageState extends State<FilmsRPage> {
-
-/*
-    @override
-  void initState() {
-    super.initState();
-   // fetchPost();
-  }
-*/
-  //RecentFilmsList(this.films,this.favoriteFilms, Function(Film film) toggleFavorite);
+class _PopularPageState extends State<PopularPPage> {
+  
+   //List<Film> _favoriteFilms = [];
 
   @override
   Widget build(BuildContext context) {
  return Scaffold(
         appBar: AppBar(
-          title: const Text('Recent'),
+          title: const Text('Popular'),
         ),
         body: Container(
           color: Colors.grey,
@@ -47,12 +42,12 @@ class _FilmsRPageState extends State<FilmsRPage> {
                           children: [
                             Text(users[index].title,style: TextStyle(fontWeight: FontWeight.bold)),
                             Text(users[index].releaseDate,style: TextStyle(fontWeight: FontWeight.bold)),
-                            new Container(
+                                  new Container(
                               decoration: new BoxDecoration(
                                 image: new DecorationImage(
                                   fit: BoxFit.fitWidth,
                                   alignment: FractionalOffset.topCenter,
-                                  image: new NetworkImage('https://image.tmdb.org/t/p/w500/'+users[index].posterPath),
+                                  image: new NetworkImage('https://image.tmdb.org/t/p/w500/kO35BwoKHyP1VRulxZJVeEl5dvS.jpg'),
                                 )
                               ),
                             ),
@@ -64,7 +59,7 @@ class _FilmsRPageState extends State<FilmsRPage> {
               }
               if (snapshot.hasError) {
                 print(snapshot.error.toString());
-                return Text('errorrrr');
+                return Text('error');
               }
               return CircularProgressIndicator();
             },
@@ -82,4 +77,14 @@ class _FilmsRPageState extends State<FilmsRPage> {
       .toList();
 }
 
+/* _toggleFavorite(Film film) {
+    setState(() {
+      if (_favoriteFilms.contains(film)) {
+        _favoriteFilms.remove(film);
+      } else {
+        _favoriteFilms.add(film);
+      }
+    });
+  }
+*/
 }

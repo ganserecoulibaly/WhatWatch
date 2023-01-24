@@ -4,29 +4,20 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 
-class FilmsRPage extends StatefulWidget {
-    const FilmsRPage({Key? key}) : super(key: key);
+class UpcomingUPage extends StatefulWidget {
+    const UpcomingUPage({Key? key}) : super(key: key);
     
   @override
-  _FilmsRPageState createState() => _FilmsRPageState();
+  _UpcomingPageState createState() => _UpcomingPageState();
 }
 
-class _FilmsRPageState extends State<FilmsRPage> {
-
-/*
-    @override
-  void initState() {
-    super.initState();
-   // fetchPost();
-  }
-*/
-  //RecentFilmsList(this.films,this.favoriteFilms, Function(Film film) toggleFavorite);
+class _UpcomingPageState extends State<UpcomingUPage> {
 
   @override
   Widget build(BuildContext context) {
  return Scaffold(
         appBar: AppBar(
-          title: const Text('Recent'),
+          title: const Text('Coming'),
         ),
         body: Container(
           color: Colors.grey,
@@ -47,12 +38,12 @@ class _FilmsRPageState extends State<FilmsRPage> {
                           children: [
                             Text(users[index].title,style: TextStyle(fontWeight: FontWeight.bold)),
                             Text(users[index].releaseDate,style: TextStyle(fontWeight: FontWeight.bold)),
-                            new Container(
+                                  new Container(
                               decoration: new BoxDecoration(
                                 image: new DecorationImage(
                                   fit: BoxFit.fitWidth,
                                   alignment: FractionalOffset.topCenter,
-                                  image: new NetworkImage('https://image.tmdb.org/t/p/w500/'+users[index].posterPath),
+                                  image: new NetworkImage('https://image.tmdb.org/t/p/w500/kO35BwoKHyP1VRulxZJVeEl5dvS.jpg'),
                                 )
                               ),
                             ),
@@ -64,7 +55,7 @@ class _FilmsRPageState extends State<FilmsRPage> {
               }
               if (snapshot.hasError) {
                 print(snapshot.error.toString());
-                return Text('errorrrr');
+                return Text('error');
               }
               return CircularProgressIndicator();
             },
@@ -75,7 +66,7 @@ class _FilmsRPageState extends State<FilmsRPage> {
 
     Future<List<Film>> fetchPost() async {
   final response =
-      await http.get(Uri.parse('https://api.themoviedb.org/3/movie/popular?api_key=aee625b964853feedc62a5fa19de554f&language=fr-FR&page=1'));
+      await http.get(Uri.parse('https://api.themoviedb.org/3/movie/upcoming?api_key=aee625b964853feedc62a5fa19de554f&language=fr-FR&page=1'));
 
  return (json.decode(response.body)['results'] as List)
       .map((e) => Film.fromJson(e))
