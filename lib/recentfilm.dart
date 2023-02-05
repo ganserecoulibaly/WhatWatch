@@ -28,6 +28,11 @@ class _FilmsRPageState extends State<FilmsRPage> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
+    /*24 is for notification bar on Android*/
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
+    final double itemWidth = size.width / 2;
  return Scaffold(
         appBar: AppBar(
           title: const Text('Recent'),
@@ -40,7 +45,12 @@ class _FilmsRPageState extends State<FilmsRPage> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<Film> users = snapshot.data as List<Film>;
-                return ListView.builder(
+                return GridView.builder(
+                    gridDelegate: 
+                          SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: (itemWidth / itemHeight),
+                          ),
                     itemCount: users.length,
                     itemBuilder: (context, index) {
                       return Container(
