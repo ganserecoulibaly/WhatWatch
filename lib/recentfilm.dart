@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+//import 'package:whatwatch/FavoriteFilmsList.dart';
 import 'Film.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'globals.dart' as globals;
+
 
 
 class FilmsRPage extends StatefulWidget {
+    //final List<Film> favoriteFilms;
     const FilmsRPage({Key? key}) : super(key: key);
     
   @override
@@ -13,13 +17,13 @@ class FilmsRPage extends StatefulWidget {
 
 class _FilmsRPageState extends State<FilmsRPage> {
 
-/*
+
     @override
   void initState() {
     super.initState();
    // fetchPost();
   }
-*/
+
   //RecentFilmsList(this.films,this.favoriteFilms, Function(Film film) toggleFavorite);
 
   @override
@@ -56,7 +60,23 @@ class _FilmsRPageState extends State<FilmsRPage> {
                                 )
                               ),
                             ),
-                            Text(users[index].overview)                            
+                            Text(users[index].overview), 
+                            IconButton(
+                        icon: users[index].isFavorite
+                            ? Icon(Icons.favorite)
+                            : Icon(Icons.favorite_border),
+                        onPressed: () {
+                          setState(() {                            
+                            users[index].isFavorite = true;                        
+                            if (globals.favMovies.contains(users[index].title)) {
+                                globals.favMovies.remove(users[index].title);
+                            } else {
+                                globals.favMovies.add(users[index].title);
+                            }
+                            print(globals.favMovies);          
+                            //_toggleFavorite(globals.favoriteFilms,users[index]); //!users[index].isFavorite;
+                          });
+                        },)                          
                             ],
                         ),
                       );

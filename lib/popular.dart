@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'Film.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'globals.dart' as globals;
 
 
 class PopularPPage extends StatefulWidget {
@@ -14,8 +15,7 @@ class PopularPPage extends StatefulWidget {
 }
 
 class _PopularPageState extends State<PopularPPage> {
-  
-   //List<Film> _favoriteFilms = [];
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,23 @@ class _PopularPageState extends State<PopularPPage> {
                                 )
                               ),
                             ),
-                            Text(users[index].overview)                            
+                            Text(users[index].overview),
+                            IconButton(
+            icon: users[index].isFavorite
+                ? Icon(Icons.favorite)
+                : Icon(Icons.favorite_border),
+            onPressed: () {
+              setState(() {
+                users[index].isFavorite = true;            
+                 if (globals.favMovies.contains(users[index].title)) {
+                     globals.favMovies.remove(users[index].title);
+                 } else {
+                     globals.favMovies.add(users[index].title);
+                 }
+                 print(globals.favMovies);          
+                //_toggleFavorite(globals.favoriteFilms,users[index]); //!users[index].isFavorite;
+              });
+            },)  
                             ],
                         ),
                       );
@@ -77,14 +93,14 @@ class _PopularPageState extends State<PopularPPage> {
       .toList();
 }
 
-/* _toggleFavorite(Film film) {
+ _toggleFavorite(List<Film> _favoriteFilms,Film Film) {
     setState(() {
-      if (_favoriteFilms.contains(film)) {
-        _favoriteFilms.remove(film);
+      if (_favoriteFilms.contains(Film)) {
+        _favoriteFilms.remove(Film);
       } else {
-        _favoriteFilms.add(film);
+        _favoriteFilms.add(Film);
       }
     });
   }
-*/
+
 }
