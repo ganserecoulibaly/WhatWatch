@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'Film.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'globals.dart' as globals;
 
 
 class UpcomingUPage extends StatefulWidget {
@@ -12,12 +13,11 @@ class UpcomingUPage extends StatefulWidget {
 }
 
 class _UpcomingPageState extends State<UpcomingUPage> {
-
-  @override
+ @override
   Widget build(BuildContext context) {
  return Scaffold(
         appBar: AppBar(
-          title: const Text('Coming'),
+          title: const Text('Recent'),
         ),
         body: Container(
           color: Colors.grey,
@@ -38,16 +38,31 @@ class _UpcomingPageState extends State<UpcomingUPage> {
                           children: [
                             Text(users[index].title,style: TextStyle(fontWeight: FontWeight.bold)),
                             Text(users[index].releaseDate,style: TextStyle(fontWeight: FontWeight.bold)),
-                                  new Container(
+                            new Container(
                               decoration: new BoxDecoration(
                                 image: new DecorationImage(
                                   fit: BoxFit.fitWidth,
                                   alignment: FractionalOffset.topCenter,
-                                  image: new NetworkImage('https://image.tmdb.org/t/p/w500/kO35BwoKHyP1VRulxZJVeEl5dvS.jpg'),
+                                  image: new NetworkImage('https://image.tmdb.org/t/p/w500/'+users[index].posterPath),
                                 )
                               ),
                             ),
-                            Text(users[index].overview)                            
+                            Text(users[index].overview), 
+                            IconButton(
+                        icon: users[index].isFavorite
+                            ? Icon(Icons.favorite)
+                            : Icon(Icons.favorite_border),
+                        onPressed: () {
+                          setState(() {                            
+                            users[index].isFavorite = true;                        
+                            if (globals.favMovies.contains(users[index].title)) {
+                                globals.favMovies.remove(users[index].title);
+                            } else {
+                                globals.favMovies.add(users[index].title);
+                            }
+                            print(globals.favMovies);          
+                          });
+                        },)                          
                             ],
                         ),
                       );
@@ -55,7 +70,7 @@ class _UpcomingPageState extends State<UpcomingUPage> {
               }
               if (snapshot.hasError) {
                 print(snapshot.error.toString());
-                return Text('error');
+                return Text('errorrrr');
               }
               return CircularProgressIndicator();
             },

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'recentfilm.dart';
 import 'Film.dart';
 import 'upcoming.dart';
 import 'popular.dart';
+import 'Favorite.dart';
 
 
 void main() {
@@ -26,14 +25,14 @@ class MyApp extends StatelessWidget {
 }
 
 class FilmsPage extends StatefulWidget {
-  
+  //static List<String> favoriteFilms = [];
   @override
   _FilmsPageState createState() => _FilmsPageState();
 }
 
 class _FilmsPageState extends State<FilmsPage> {
-  final List<Film> _films = [];
   final List<Film> favoriteFilms = [];
+  //final List<Film> favoriteFilms = [];
 
   @override
   void initState() {
@@ -44,22 +43,22 @@ class _FilmsPageState extends State<FilmsPage> {
   
 
 
- /* _toggleFavorite(Film film) {
+_toggleFavorite(List<Film> favoriteFilms,Film film) {
     setState(() {
-      if (_favoriteFilms.contains(film)) {
-        _favoriteFilms.remove(film);
+      if (favoriteFilms.contains(film)) {
+        favoriteFilms.remove(film);
         film.isFavorite = false;
       } else {
-        _favoriteFilms.add(film);
+        favoriteFilms.add(film);
         film.isFavorite = true;
       }
     });
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: Text('Films'),
@@ -68,6 +67,7 @@ class _FilmsPageState extends State<FilmsPage> {
               Tab(text: 'À venir'),
               Tab(text: 'Récent'),
               Tab(text: 'Populaire'),
+              Tab(text: 'Favoris'),
             ],
           ),
         ),
@@ -75,24 +75,11 @@ class _FilmsPageState extends State<FilmsPage> {
           children: [
             UpcomingUPage(),
             FilmsRPage(),
-            PopularPPage(),//RecentFilmsList(_films, _favoriteFilms, _toggleFavorite),
+            PopularPPage(),
+            FavoritePage()//RecentFilmsList(_films, _favoriteFilms, _toggleFavorite),
           ],
         ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              DrawerHeader(
-                child: Text('Favoris'),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
-              ),
-              //FavoriteFilmsList(_favoriteFilms, _toggleFavorite),
-            ],
-          ),
-        ),
-      ),
+       ),
     );
   }
 }
