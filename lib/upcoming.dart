@@ -49,9 +49,13 @@ class _UpcomingPageState extends State<UpcomingUPage> {
                             ),
                             Text(users[index].overview), 
                             IconButton(
-                        icon: users[index].isFavorite
-                            ? Icon(Icons.favorite)
-                            : Icon(Icons.favorite_border),
+                            icon: globals.favMovies.contains(users[index].title)
+                            ? Icon(
+                              Icons.favorite,
+                              color : Colors.red)
+                            : Icon(
+                              Icons.favorite_border
+                              ),
                         onPressed: () {
                           setState(() {                            
                             users[index].isFavorite = true;                        

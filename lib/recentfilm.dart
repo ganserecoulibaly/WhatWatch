@@ -62,9 +62,13 @@ class _FilmsRPageState extends State<FilmsRPage> {
                             ),
                             Text(users[index].overview), 
                             IconButton(
-                        icon: users[index].isFavorite
-                            ? Icon(Icons.favorite)
-                            : Icon(Icons.favorite_border),
+                        icon: globals.favMovies.contains(users[index].title)
+                            ? Icon(
+                              Icons.favorite,
+                              color : Colors.red)
+                            : Icon(
+                              Icons.favorite_border,
+                              ),//color : Colors.black),
                         onPressed: () {
                           setState(() {                            
                             users[index].isFavorite = true;                        
